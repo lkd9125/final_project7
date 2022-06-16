@@ -1,0 +1,63 @@
+회원가입 프로세스 처리
+
+home.jsp(/) -> controller -> joinFrm.jsp -> controller -> service -> dao
+dao -> service -> controller -> home.jsp
+
+데이터 전송에는 MemberDto를 활용.
+
+
+Mybatis 활용
+  - Dao 인터페이스와 같은 패키지에 맵퍼(mapper) xml 파일을 작성.
+  
+Mybatis 맵퍼 작성법
+1. parameterType : Dao 메소드의 매개변수 타입
+	1개의 type만 작성. 매개변수가 여러개일 경우 parameterType을 생략(비추!)
+2. parameterType이 DTO와 같은 class가 아닐때 : #{변수명}
+3. parameterType이 DTO와 같은 class일 때 : #{필드명}
+4. 여러개의 값을 사용하여 쿼리를 작성하는 경우
+	Map<key, value>을 사용 : #{key}
+5. select의 경우 resultType에 결과값에 해당하는 자료형을 작성.(1개만 지정)
+	전체(*) 검색의 경우 DTO를 사용.
+
+select * from table where id=? : '?' -> #{xxx}
+
+
+
+자바 코드의 단위 테스트 : jUnit
+프로그램 구현의 단계에 따라 클래스 또는 로직 단위로 부분 테스트를 진행 -> 단위테스트
+
+
+
+로그인 처리에 대한 고려사항
+1. 화면 처리 : home -> login
+   로그인 성공 : main
+   로그인 실패 : login
+2. 로그인 처리용 쿼리 : id -> pwd 검색
+				id, pwd -> count
+
+	2-1. 로그인 성공시 세션에 로그인 정보 저장
+		 main 페이지 (view)에 사용자 정보 출력
+
+로그 아웃
+사용자 정보 수정 및 삭제
+
+스프링프레임워크를 사용해서 만드는 주된목적 사이트 -> 은행, 판매 등 상업적인 사이트임
+
+
+
+관리자(사업) 목록 만들기 -> DB 내용을 목록으로 불러오기.
+
+
+관리자 -> 시스템관리자(페이지개발자) , 사업관리자(페이지 정보들을 관리하는 사업가 등..)
+
+스프링의 트랜잭션 처리
+TransactionManager 객체로 처리(root-context.xml에 bean 설정)
+<tx:annotation-driven></tx>
+
+트랜잭션으로 처리할 서비스 메소드에 @Transactional 어노테이션 사용
+트랜잭션으로 처리할 기능 : insert, update, delete
+
+ 
+
+
+

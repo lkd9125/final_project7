@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.openai.db.dao.MemberDao">
+	<insert id="insertMember" 
+		parameterType="com.openai.db.dto.MemberDto">
+		INSERT INTO membertbl VALUES
+		(#{m_id},#{m_name},#{m_pwd},#{m_age},#{m_addr})
+	</insert>
+	
+	<select id="selectLogin" 
+		parameterType="com.openai.db.dto.MemberDto"
+		resultType="int">
+		SELECT count(*) FROM membertbl 
+		WHERE m_id=#{m_id} AND m_pwd=#{m_pwd}
+	</select>
+	
+	<select id="selectMember"
+		parameterType="String"
+		resultType="com.openai.db.dto.MemberDto">
+		SELECT * FROM membertbl
+		WHERE m_id=#{m_id}
+	</select>
+	
+	<select id="deleteMember"
+	parameterType="String">
+	DELETE FROM membertbl WHERE m_id=#{m_id}
+	</select>
+	
+	<select id="updateMember"
+	parameterType="com.openai.db.dto.MemberDto">
+	 update membertbl set m_name=#{m_name},m_pwd=#{m_pwd},m_age=#{m_age},m_addr=#{m_addr} where m_id=#{m_id};
+	</select>
+	
+	<select id="selectAdmin" 
+		parameterType="com.openai.db.dto.MemberDto"
+		resultType="int">
+		SELECT count(*) FROM admin 
+		WHERE m_id=#{m_id} AND m_pwd=#{m_pwd}
+	</select>
+	
+	<select id="getList" 
+		resultType="com.openai.db.dto.MemberDto"> <!-- 리스트를 뽑아와도 즉 배열이여도 하나로 취급함,
+		자동으로 알아서 리스트를 만들기 때문에 resultType 에 어떤범위를 반환할건지만 정해주면됩니당 -->
+		SELECT * FROM membertbl
+	</select>
+</mapper>
+
+
+
